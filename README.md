@@ -13,12 +13,12 @@ of input features as well as the SNP-gene eQTL and gene-gene GRN connections.
 ## Installation
 
 This script need no installation, but has the following requirements:
-    -PyTorch 0.4.1 or above
-    -Python3.6.5 or above
+* PyTorch 0.4.1 or above
+* Python3.6.5 or above
 
 
 ## Usage
-python Varmole.py /path/to/input/file.csv
+`python Varmole.py /path/to/input/file.csv`
 
 The script will compute and output 4 output files:
 
