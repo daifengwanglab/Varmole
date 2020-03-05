@@ -99,7 +99,7 @@ Thehe imbalanced dataset sampler is also provied for user to deal with imbalance
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, TensorDataset, DataLoader
-form sampler import ImbalancedDatasetSampler # for imbalanced dataset
+from Varmole.sampler import ImbalancedDatasetSampler # for imbalanced dataset
 
 train_ds = TensorDataset(X_train, y_train)
 val_ds = TensorDataset(X_val, y_val)
