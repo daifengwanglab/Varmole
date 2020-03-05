@@ -93,7 +93,7 @@ class Net(nn.Module):
         y_pred = self.linear4(h3).sigmoid()
         return y_pred
 ```
-Thehe imbalanced dataset sampler is also provied for user to deal with imbalanced data as follows:
+The imbalanced dataset sampler is also provied for user to deal with imbalanced data as follows:
 
 ```python
 import torch
