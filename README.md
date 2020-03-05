@@ -22,7 +22,7 @@ This script need no installation, but has the following requirements:
 ### Command Line Tool
 `python Varmole.py /path/to/input/file.csv`
 
-The input file file.csv is the concatenation of genotype and gene expression over the samples.
+The input file `file.csv` is the concatenation of genotype and gene expression over the samples.
 
 The script will compute and output 4 output files:
 
@@ -35,7 +35,40 @@ For more information:
     python Varmole.py -h
 
 ### Varmole Library
-The Varmole architecture is also provided in the repository. It is the Biologically DropConnect Layer that users can import into a python program. The usage is as follow:
+Users can use a wrapping function `train_Varmole()` to train a Varmole model with 5 input data:
+
+* genotype
+* gene expression
+* phenotype
+* gene regulatory network
+* eQTL
+
+Users can also set the learning parameters as listed below:
+
+* H2: the number of neurons in the first hidden layer,
+* H3: the number of neurons in the second hidden layer, 
+* BS: the training batch size, 
+* L1REG: the L1 regularization parameter,
+* Opt: the optimization method using to learn (from torch.optim), 
+* LR: learning rate,
+* L2REG: the L2 regularization (if supported by the the optimization method); default is None, 
+* epoch: number of the training epoch, 
+* device: device for training, i.e., 'cpu' or 'cuda' (if GPU is available); default value is 'cpu'.
+
+The output will be the test balanced accuracy score.
+
+```python
+import torch
+from Varmole.train import *
+
+opt = torch.optim.Adam
+test_score = train_varmole('snp.csv', 'gene.csv', 'phenotype.txt', 'grn.csv', 'eqtl.csv', 1000, 500, 60, 0.0001, opt, 0.001, 0.1, 60, 'cuda')
+```
+
+This will print out the test balanced accuracy score:
+`Test Accuracy 0.76`
+
+The Varmole architecture is also provided in the repository. It is the Biologically DropConnect Layer that users can import to use with his/her own model. The usage is as follow:
 
 ```python
 import torch
@@ -48,7 +81,7 @@ class Net(nn.Module):
     def __init__(self, adj, D_in, H1, H2, H3, D_out):
         super(Net, self).__init__()
         self.adj = adj
-        self.GRNeQTL = GRNeQTL(D_in, H1)
+        self.GRNeQTL = GRNeQTL(D_in, H1) # define the Bio DropConnect Layer
         self.linear2 = torch.nn.Linear(H1, H2)
         self.linear3 = torch.nn.Linear(H2, H3)
         self.linear4 = torch.nn.Linear(H3, D_out)
@@ -60,12 +93,13 @@ class Net(nn.Module):
         y_pred = self.linear4(h3).sigmoid()
         return y_pred
 ```
-We also provide the imbalanced dataset sampler for user to deal with imbalanced data as follows:
+Thehe imbalanced dataset sampler is also provied for user to deal with imbalanced data as follows:
 
 ```python
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, TensorDataset, DataLoader
+form sampler import ImbalancedDatasetSampler # for imbalanced dataset
 
 train_ds = TensorDataset(X_train, y_train)
 val_ds = TensorDataset(X_val, y_val)
