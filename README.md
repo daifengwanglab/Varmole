@@ -62,7 +62,7 @@ import torch
 from Varmole.train import *
 
 opt = torch.optim.Adam
-test_score = train_varmole('snp.csv', 'gene.csv', 'phenotype.txt', 'grn.csv', 'eqtl.csv', 1000, 500, 60, 0.0001, opt, 0.001, 0.1, 60, 'cuda')
+test_score = train_Varmole('snp.csv', 'gene.csv', 'phenotype.txt', 'grn.csv', 'eqtl.csv', 1000, 500, 60, 0.0001, opt, 0.001, 0.1, 60, 'cuda')
 ```
 
 This will print out the test balanced accuracy score:
