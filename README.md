@@ -20,6 +20,8 @@ This script need no installation, but has the following requirements:
 ## Usage
 `python Varmole.py /path/to/input/file.csv`
 
+The input file file.csv is the concatenation of genotype and gene expression over the samples as the file inputExamples.csv in this repository.
+
 The script will compute and output 4 output files:
 
 * file_Predictions.csv: the disease prediction outcomes
