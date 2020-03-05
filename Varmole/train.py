@@ -238,3 +238,4 @@ def train_Varmole(genotype, gene_expression, phenotype, GRN, eQTL, H2, H3, BS, L
     y_hat_class = np.where(yhat.cpu().numpy()<0.5, 0, 1)
     test_accuracy = balanced_accuracy_score(y_test.reshape(-1,1), y_hat_class)
   print("Test Accuracy {:.2f}".format(test_accuracy))
+  return test_accuracy
